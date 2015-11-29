@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:fitsSystemWindows="true"
-    tools:context=".ConversationsInbox">
+    tools:context=".Dashboard">
 
     <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
         android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay">
@@ -15,11 +15,20 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_conversations_inbox" />
+    <FrameLayout
+        android:id="@+id/fragment_inbox"
+        android:layout_width="0px"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@android:color/white"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:visibility="visible">
+    </FrameLayout>
+
     <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
+        android:src="@android:drawable/ic_menu_edit" />
 
 
 </android.support.design.widget.CoordinatorLayout>

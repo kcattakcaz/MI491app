@@ -10,6 +10,22 @@ public class Conversation {
     private ArrayList<User> users;
     private ArrayList<Message> messages;
 
+    public Conversation(){
+
+    }
+
+    public Message getByPosition(int id){
+        return messages.get(id);
+    }
+
+    public String getTitle(){
+        String title = "";
+        for (int i = 0; i <users.size() ; i++) {
+            title+=users.get(i).getDisplayName() + ",";
+        }
+        return title;
+    }
+
     public Conversation(String id) {
         this.id = id;
     }
@@ -20,6 +36,10 @@ public class Conversation {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setUsers(ArrayList<User> newUsers){
+        this.users = newUsers;
     }
 
     public ArrayList<User> getUsers() {
@@ -34,3 +54,4 @@ public class Conversation {
         return null;
     }
 }
+

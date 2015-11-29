@@ -14,6 +14,11 @@ public class Message {
     private Integer timestamp; //server's timestamp or something probably in UTC?
     private String content; //Just text for text, URL for image/file
 
+    public Message(){
+
+    }
+
+
     public Message(MessageType mType,String mId,String mSender,Integer mTimestamp,String mContent){
         this.type = mType;
         this.id = mId;

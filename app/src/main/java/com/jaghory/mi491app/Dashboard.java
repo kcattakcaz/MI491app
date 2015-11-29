@@ -1,17 +1,26 @@
 package com.jaghory.mi491app;
 
+
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.firebase.client.Firebase;
 
-public class ConversationsInbox extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Dashboard extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +31,27 @@ public class ConversationsInbox extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Fragment cif = new ConversationsInboxFragment();
+        fragmentTransaction.add(R.id.fragment_inbox, cif);
+        fragmentTransaction.commit();
+        fragmentManager.executePendingTransactions();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Hello", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
+                /*Snackbar.make(view, "Hello", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();*/
+
+
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        for(Fragment fragment : fragments){
+            if(fragment != null && fragment.isVisible())
+                System.out.println(fragment.toString());
+                Snackbar.make(view,String.valueOf(fragment.isVisible()),Snackbar.LENGTH_SHORT).setAction("Action",null).show();
+        }
             }
         });
 
@@ -58,3 +81,4 @@ public class ConversationsInbox extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+
