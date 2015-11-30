@@ -42,9 +42,9 @@ public class Dashboard extends AppCompatActivity {
 
         Firebase mFireRef = new Firebase("https://mi491app.firebaseio.com/conversations");
         conversationsRecyclerView.setHasFixedSize(true);
-        
 
-        FirebaseRecyclerAdapter mAdapter = new FirebaseRecyclerAdapter<ConversationOverview,ConversationViewHolder>(ConversationOverview.class, android.R.layout.two_line_list_item, ConversationViewHolder.class, mFireRef) {
+
+        FirebaseRecyclerAdapter mAdapter = new FirebaseRecyclerAdapter<ConversationOverview,ConversationViewHolder>(ConversationOverview.class, R.layout.content_conversations_overview, ConversationViewHolder.class, mFireRef) {
             //@Override
             public void populateViewHolder(ConversationViewHolder chatMessageViewHolder, ConversationOverview chatMessage) {
                 chatMessageViewHolder.nameText.setText(chatMessage.getcTitle());
@@ -94,8 +94,8 @@ public class Dashboard extends AppCompatActivity {
 
         public ConversationViewHolder(View itemView) {
             super(itemView);
-            nameText = (TextView)itemView.findViewById(android.R.id.text1);
-            messageText = (TextView) itemView.findViewById(android.R.id.text2);
+            nameText = (TextView)itemView.findViewById(R.id.mConversationTitle);
+            messageText = (TextView) itemView.findViewById(R.id.mConversationSummary);
         }
     }
 }
