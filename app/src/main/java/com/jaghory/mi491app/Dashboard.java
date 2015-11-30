@@ -40,7 +40,7 @@ public class Dashboard extends AppCompatActivity {
         conversationsRecyclerView = (RecyclerView) findViewById(R.id.conversationsRecView);
         conversationsRecyclerView.setLayoutManager(conversationsLayoutManager);
 
-        Firebase mFireRef = new Firebase("https://mi491app.firebaseio.com/conversations");
+        final Firebase mFireRef = new Firebase("https://mi491app.firebaseio.com/conversations");
         conversationsRecyclerView.setHasFixedSize(true);
 
 
@@ -58,8 +58,12 @@ public class Dashboard extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Hello", Snackbar.LENGTH_SHORT)
+                Snackbar.make(view, "Message sent", Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
+                ConversationOverview nC = new ConversationOverview();
+                nC.setcSummary("New Message");
+                nC.setcTitle("Empty Title");
+                mFireRef.push().setValue(nC);
 
             }});
 
