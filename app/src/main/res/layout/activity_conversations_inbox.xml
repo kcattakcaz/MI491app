@@ -6,25 +6,32 @@
     android:layout_height="match_parent" android:fitsSystemWindows="true"
     tools:context=".Dashboard">
 
-    <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
-        android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
+            android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay" android:id="@+id/AppBarOverlayContainer">
 
-        <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
-            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary" app:popupTheme="@style/AppTheme.PopupOverlay" />
+            <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
+                android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary" app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    </android.support.design.widget.AppBarLayout>
+        </android.support.design.widget.AppBarLayout>
 
-    <FrameLayout
-        android:id="@+id/fragment_inbox"
-        android:layout_width="0px"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@android:color/white"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:visibility="visible">
-    </FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:layout_below="@id/AppBarOverlayContainer">
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/conversationsRecView"
+                android:scrollbars="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+    </RelativeLayout>
     <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin"
