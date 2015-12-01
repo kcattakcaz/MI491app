@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:fitsSystemWindows="true"
+    tools:context=".Dashboard">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
+            android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay" android:id="@+id/AppBarOverlayContainer">
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:layout_below="@id/AppBarOverlayContainer"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Message Recipients"
+                android:id="@+id/messageRecipientsTitle"
+                android:layout_gravity="top" />
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="New AutoCompleteTextView"
+                android:id="@+id/autoCompleteTextView"
+                android:layout_gravity="top" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:ems="10"
+                    android:id="@+id/editText"
+                    android:layout_weight="5"
+                    android:layout_gravity="left|bottom" />
+
+                <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin"
+                    android:src="@android:drawable/ic_menu_send" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

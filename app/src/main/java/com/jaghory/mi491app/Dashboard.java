@@ -1,6 +1,7 @@
 package com.jaghory.mi491app;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -58,13 +59,14 @@ public class Dashboard extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Message sent", Snackbar.LENGTH_SHORT)
+                /*Snackbar.make(view, "Message sent", Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
                 ConversationOverview nC = new ConversationOverview();
                 nC.setcSummary("New Message");
                 nC.setcTitle("Empty Title");
                 mFireRef.push().setValue(nC);
-
+                */
+                startActivity(new Intent(getApplicationContext(),ComposeActivity.class));
             }});
 
 

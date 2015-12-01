@@ -22,23 +22,52 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="bottom"
-            android:layout_below="@id/AppBarOverlayContainer">
+            android:layout_below="@id/AppBarOverlayContainer"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Message Recipients"
+                android:id="@+id/messageRecipientsTitle" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/conversationsRecView"
+                android:id="@+id/messageRecipientsRecView"
                 android:scrollbars="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp" />
+                android:layout_marginTop="5dp"
+                android:layout_gravity="top"
+                android:layout_weight="2" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="My Contacts"
+                android:id="@+id/textView" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/contactsRecView"
+                android:scrollbars="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="top"
+                android:layout_weight="1" />
+
         </LinearLayout>
 
     </RelativeLayout>
-    <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_menu_edit" />
 
 
 </android.support.design.widget.CoordinatorLayout>
