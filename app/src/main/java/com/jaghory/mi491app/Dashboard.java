@@ -41,6 +41,8 @@ public class Dashboard extends AppCompatActivity {
         conversationsRecyclerView = (RecyclerView) findViewById(R.id.conversationsRecView);
         conversationsRecyclerView.setLayoutManager(conversationsLayoutManager);
 
+        Snackbar.make(this.findViewById(R.id.conversationsRecView), "Welcome back, NULL USER!", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
         final Firebase mFireRef = new Firebase("https://mi491app.firebaseio.com/conversations");
         conversationsRecyclerView.setHasFixedSize(true);
 
