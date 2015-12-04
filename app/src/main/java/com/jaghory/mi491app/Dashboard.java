@@ -31,7 +31,6 @@ public class Dashboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Firebase.setAndroidContext(this.getApplicationContext());
         setContentView(R.layout.activity_conversations_inbox);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -47,7 +46,7 @@ public class Dashboard extends AppCompatActivity {
         conversationsRecyclerView.setHasFixedSize(true);
 
 
-        FirebaseRecyclerAdapter mAdapter = new FirebaseRecyclerAdapter<ConversationOverview,ConversationViewHolder>(ConversationOverview.class, R.layout.content_conversations_overview, ConversationViewHolder.class, mFireRef) {
+        final FirebaseRecyclerAdapter mAdapter = new FirebaseRecyclerAdapter<ConversationOverview,ConversationViewHolder>(ConversationOverview.class, R.layout.content_conversations_overview, ConversationViewHolder.class, mFireRef) {
             //@Override
             public void populateViewHolder(ConversationViewHolder chatMessageViewHolder, ConversationOverview chatMessage) {
                 chatMessageViewHolder.nameText.setText(chatMessage.getcTitle());
@@ -56,6 +55,17 @@ public class Dashboard extends AppCompatActivity {
             }
         };
         conversationsRecyclerView.setAdapter(mAdapter);
+
+        ItemClickSupport.addTo(conversationsRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                Intent clickedConv = new Intent(getApplicationContext(),ConversationActivity.class);
+                clickedConv.putExtra("conversation_firebase_ref",mAdapter.getRef(position).toString());
+
+                startActivity(clickedConv);
+
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
