@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onAuthenticationError(FirebaseError firebaseError){
-                Snackbar.make(password, "Incorrect username or password.", Snackbar.LENGTH_SHORT)
+                Snackbar.make(password, firebaseError.toString(), Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
             }
         };
@@ -59,8 +59,13 @@ public class LoginActivity extends AppCompatActivity {
                 fRef.createUser(username.getText().toString(), password.getText().toString(), new Firebase.ValueResultHandler<Map<String, Object>>() {
                     @Override
                     public void onSuccess(Map<String, Object> result) {
-                        Snackbar.make(v, "Created!  Now sign in!", Snackbar.LENGTH_SHORT)
+                        /*Snackbar.make(v, "Created!  Now sign in!", Snackbar.LENGTH_SHORT)
                                 .setAction("Action", null).show();
+                                */
+                        Intent finRegister = new Intent(getApplicationContext(),RegistrationActivity.class);
+                        finRegister.putExtra("username",username.getText().toString());
+                        finRegister.putExtra("password",password.getText().toString());
+                        startActivity(finRegister);
                     }
 
                     @Override

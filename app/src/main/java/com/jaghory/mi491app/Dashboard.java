@@ -16,8 +16,12 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.firebase.ui.FirebaseRecyclerAdapter;
 
 import java.util.ArrayList;
@@ -40,9 +44,29 @@ public class Dashboard extends AppCompatActivity {
         conversationsRecyclerView = (RecyclerView) findViewById(R.id.conversationsRecView);
         conversationsRecyclerView.setLayoutManager(conversationsLayoutManager);
 
-        Snackbar.make(this.findViewById(R.id.conversationsRecView), "Welcome back, NULL USER!", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
         final Firebase mFireRef = new Firebase("https://mi491app.firebaseio.com/conversations");
+        final User currentUser = new User();
+
+        mFireRef.getRoot().child("users/" + mFireRef.getAuth().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                currentUser.setDisplayName((String) dataSnapshot.child("displayName").getValue());
+                currentUser.setPhoneNumber((String) dataSnapshot.child("phoneNumber").getValue());
+
+                Snackbar.make(findViewById(R.id.conversationsRecView), "Welcome back, " + currentUser.getDisplayName(), Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+
+
         conversationsRecyclerView.setHasFixedSize(true);
 
 
@@ -90,6 +114,15 @@ public class Dashboard extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_conversations_inbox, menu);
         return true;
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        //super.onBackPressed();
+        Toast toast = Toast.makeText(getApplicationContext(), "You are already signed-in", Toast.LENGTH_SHORT);
+        toast.show();
+
     }
 
     @Override

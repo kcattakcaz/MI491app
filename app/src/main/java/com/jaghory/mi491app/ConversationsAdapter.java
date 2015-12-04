@@ -33,8 +33,8 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdap
     // Provide a suitable constructor (depends on the kind of dataset)
     public ConversationsAdapter(String firebase_base_url, String user) {
         convos = new ArrayList<Conversation>();
-        User user1 = new User("jsmith","John Smith");
-        User user2 = new User("jappleseed","Johnny Appleseed");
+        User user1 = new User();
+        User user2 = new User();
         Conversation c1 = new Conversation();
         ArrayList<User> user0 = new ArrayList<>();
         user0.add(user1);

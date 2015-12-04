@@ -1,6 +1,7 @@
 package com.jaghory.mi491app;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zach on 11/19/15.
@@ -9,19 +10,25 @@ public class User {
 
     private String username;
     private String displayName;
-    private ArrayList<Conversation> conversations; //only filled for the user that is signed in
+    private String phoneNumber;
+    private List conversations; //only filled for the user that is signed in
 
+    public User(){
 
-    public User(String username, String displayName) {
-        this.username = username;
-        this.displayName = displayName;
     }
 
-    public ArrayList<Conversation> getConversations() {
+
+    public User(String username, String displayName, String phoneNumber) {
+        this.username = username;
+        this.displayName = displayName;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public List getConversations() {
         return conversations;
     }
 
-    public void setConversations(ArrayList<Conversation> conversations) {
+    public void setConversations(List conversations) {
         this.conversations = conversations;
     }
 
@@ -41,5 +48,12 @@ public class User {
         this.username = username;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
 }
