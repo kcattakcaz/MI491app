@@ -1,7 +1,6 @@
 package com.jaghory.mi491app;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zach on 11/19/15.
@@ -11,7 +10,7 @@ public class User {
     private String username;
     private String displayName;
     private String phoneNumber;
-    private List conversations; //only filled for the user that is signed in
+    private Map<String, String> conversations; //only filled for the user that is signed in
 
     public User(){
 
@@ -24,11 +23,11 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public List getConversations() {
+    public Map<String, String> getConversations() {
         return conversations;
     }
 
-    public void setConversations(List conversations) {
+    public void setConversations(Map<String, String> conversations) {
         this.conversations = conversations;
     }
 

@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 import com.firebase.ui.FirebaseRecyclerAdapter;
 
@@ -47,6 +48,9 @@ public class Dashboard extends AppCompatActivity {
         final Firebase mFireRef = new Firebase("https://mi491app.firebaseio.com/conversations");
         final User currentUser = new User();
 
+        final Query queryRef = mFireRef.orderByChild(mFireRef.getAuth().getUid()).equalTo(true);
+
+
         mFireRef.getRoot().child("users/" + mFireRef.getAuth().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -70,12 +74,11 @@ public class Dashboard extends AppCompatActivity {
         conversationsRecyclerView.setHasFixedSize(true);
 
 
-        final FirebaseRecyclerAdapter mAdapter = new FirebaseRecyclerAdapter<ConversationOverview,ConversationViewHolder>(ConversationOverview.class, R.layout.content_conversations_overview, ConversationViewHolder.class, mFireRef) {
+        final FirebaseRecyclerAdapter mAdapter = new FirebaseRecyclerAdapter<ConversationOverview,ConversationViewHolder>(ConversationOverview.class, R.layout.content_conversations_overview, ConversationViewHolder.class, queryRef) {
             //@Override
             public void populateViewHolder(ConversationViewHolder chatMessageViewHolder, ConversationOverview chatMessage) {
                 chatMessageViewHolder.nameText.setText(chatMessage.getcTitle());
                 chatMessageViewHolder.messageText.setText(chatMessage.getcSummary());
-                System.out.println("HELLLOOOOO "+chatMessage.getcTitle());
             }
         };
         conversationsRecyclerView.setAdapter(mAdapter);
