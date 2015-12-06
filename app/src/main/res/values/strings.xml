@@ -5,4 +5,5 @@
     <string name="title_activity_login">Login</string>
     <string name="title_activity_conversation">ConversationActivity</string>
     <string name="title_activity_registration">Account Creation</string>
+    <string name="title_activity_contacts_list">My Contacts</string>
 </resources>

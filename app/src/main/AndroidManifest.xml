@@ -36,7 +36,10 @@
         </activity>
         <activity
             android:name=".RegistrationActivity"
-            android:label="@string/title_activity_registration"></activity>
+            android:label="@string/title_activity_registration" />
+        <activity
+            android:name=".ContactsListActivity"
+            android:label="@string/title_activity_contacts_list"></activity>
     </application>
 
 </manifest>
