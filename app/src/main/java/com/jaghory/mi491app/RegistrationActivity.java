@@ -21,7 +21,7 @@ public class RegistrationActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        final Firebase mFireRef = new Firebase("https://mi491app.firebaseio.com/users");
+        final Firebase mFireRef = new Firebase("https://mi491app.firebaseio.com");
 
         Intent userInfo = getIntent();
 
@@ -41,7 +41,8 @@ public class RegistrationActivity extends Activity {
                         Snackbar.make(getStarted, "Please wait...", Snackbar.LENGTH_SHORT)
                                 .setAction("Action", null).show();
                         User authed_user = new User(username,displayName.getText().toString(),phoneNumber.getText().toString());
-                        mFireRef.child(authData.getUid()).setValue(authed_user);
+                        mFireRef.child("users").child(authData.getUid()).setValue(authed_user);
+                        mFireRef.child("users_email").child(authData.getUid()).setValue(authed_user.getPhoneNumber());
                         startActivity(new Intent(getApplicationContext(), Dashboard.class));
                     }
 
