@@ -3,6 +3,7 @@ package com.jaghory.mi491app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,6 +42,7 @@ public class ContactsListActivity extends AppCompatActivity {
         contactsRecView.setAdapter(contactsA);
         RecyclerView.LayoutManager recLayoutMgr = new LinearLayoutManager(getApplicationContext());
         contactsRecView.setLayoutManager(recLayoutMgr);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         final Firebase mFireRef = new Firebase("https://mi491app.firebaseio.com");
@@ -48,14 +50,14 @@ public class ContactsListActivity extends AppCompatActivity {
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        for(DataSnapshot contact : dataSnapshot.getChildren()){
+                        for (DataSnapshot contact : dataSnapshot.getChildren()) {
 
                             Double score = Double.parseDouble(contact.getValue().toString());
 
 
-                            contacts_list.put(contact.getKey(),score);
+                            contacts_list.put(contact.getKey(), score);
                         }
-                        contactsRecView.swapAdapter( new ContactsAdapter(contacts_list),false);
+                        contactsRecView.swapAdapter(new ContactsAdapter(contacts_list), false);
                     }
 
                     @Override
@@ -64,6 +66,21 @@ public class ContactsListActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_contact);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*Snackbar.make(view, "Message sent", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
+                ConversationOverview nC = new ConversationOverview();
+                nC.setcSummary("New Message");
+                nC.setcTitle("Empty Title");
+                mFireRef.push().setValue(nC);
+                */
+                startActivity(new Intent(getApplicationContext(), AddContactActivity.class));
+            }
+        });
 
     }
 
@@ -145,7 +162,12 @@ public class ContactsListActivity extends AppCompatActivity {
                     cFireRef.child("/users/"+contact.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            cName.setText((String) dataSnapshot.child("displayName").getValue());
+                            if(dataSnapshot.child("displayName").getValue() == null || ((String) dataSnapshot.child("displayName").getValue()).length() <= 1){
+                                cName.setText("Deleted User: " + dataSnapshot.getKey());
+                            }
+                            else {
+                                cName.setText((String) dataSnapshot.child("displayName").getValue());
+                            }
                         }
 
                         @Override

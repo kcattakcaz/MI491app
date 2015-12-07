@@ -57,7 +57,7 @@ public class Dashboard extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 currentUser.setDisplayName((String) dataSnapshot.child("displayName").getValue());
-                currentUser.setPhoneNumber((String) dataSnapshot.child("phoneNumber").getValue());
+                currentUser.setPhoneNumber(dataSnapshot.child("phoneNumber").getValue().toString());
 
                 Snackbar.make(findViewById(R.id.conversationsRecView), "Welcome back, " + currentUser.getDisplayName(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
