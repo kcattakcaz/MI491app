@@ -29,12 +29,12 @@
                 android:id="@+id/messageRecipientsTitle"
                 android:layout_gravity="top" />
 
-            <AutoCompleteTextView
+            <MultiAutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New AutoCompleteTextView"
+                android:text="New MultiAutoCompleteTextView"
                 android:id="@+id/autoCompleteTextView"
-                android:layout_gravity="top" />
+                android:completionHint="Start typing..." />
 
             <LinearLayout
                 android:orientation="horizontal"

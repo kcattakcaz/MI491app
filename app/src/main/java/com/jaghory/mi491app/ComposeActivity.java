@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.MultiAutoCompleteTextView;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -25,7 +26,7 @@ public class ComposeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_compose);
         this.setTitle("New Conversation");
         final Firebase sFireRef = new Firebase("https://mi491app.firebaseio.com");
-        final AutoCompleteTextView contacts = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
+        final MultiAutoCompleteTextView contacts = (MultiAutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
         contacts.setAdapter(new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1));
 
         sFireRef.child("users").child(sFireRef.getAuth().getUid()).child("contacts").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -63,6 +64,7 @@ public class ComposeActivity extends AppCompatActivity {
                             System.out.println(user_names.toString());
                             contacts.setAdapter(AutoCompleteAdapter);
                             contacts.setThreshold(1);
+                            contacts.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
                         }
 
                         @Override
