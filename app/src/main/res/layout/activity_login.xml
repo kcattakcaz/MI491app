@@ -88,7 +88,8 @@
                 android:text="Sign In"
                 android:id="@+id/login_btn"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:background="#B2DFDB"/>
 
             <Button
                 android:layout_width="match_parent"
@@ -96,7 +97,8 @@
                 android:text="Create Account"
                 android:id="@+id/signup_btn"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:background="#B2DFDB"/>
 
             <Space
                 android:layout_width="match_parent"
