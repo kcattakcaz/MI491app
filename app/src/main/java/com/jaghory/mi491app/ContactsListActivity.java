@@ -46,7 +46,7 @@ public class ContactsListActivity extends AppCompatActivity {
 
 
         final Firebase mFireRef = new Firebase("https://mi491app.firebaseio.com");
-        mFireRef.child("users").child(mFireRef.getAuth().getUid()).child("contacts").addListenerForSingleValueEvent(
+        mFireRef.child("users").child(mFireRef.getAuth().getUid()).child("contacts").addValueEventListener(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

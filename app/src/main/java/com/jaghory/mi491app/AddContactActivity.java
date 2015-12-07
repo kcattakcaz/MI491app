@@ -18,6 +18,8 @@ import com.firebase.client.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.util.HashMap;
+
 public class AddContactActivity extends AppCompatActivity {
 
     @Override
@@ -41,21 +43,40 @@ public class AddContactActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                sResults.setVisibility(View.INVISIBLE);
+                if(searchString.getText().toString().length() <= 1){
+                    Toast t = Toast.makeText(getApplicationContext(),"That doesn't appear to be a valid phone number",Toast.LENGTH_SHORT);
+                    t.show();
+                    return;
+                }
                 Query queryRef = tFireRef.child("users_email").child(searchString.getText().toString());
                 queryRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.exists()){
-                            Toast t=  Toast.makeText(getApplicationContext(), dataSnapshot.getValue().toString(), Toast.LENGTH_SHORT);
+                        if (dataSnapshot.exists()) {
+                            Toast t = Toast.makeText(getApplicationContext(), dataSnapshot.getValue().toString(), Toast.LENGTH_SHORT);
                             t.show();
-                            tFireRef.child("users").child(dataSnapshot.getValue().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            final String contactUid = dataSnapshot.getValue().toString();
+                            tFireRef.child("users").child(contactUid).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                    //usrName.setText(dataSnapshot.getValue().toString());
                                     usrName.setText(dataSnapshot.child("displayName").getValue().toString());
                                     usrEmail.setText(dataSnapshot.child("username").getValue().toString());
                                     sResults.setVisibility(View.VISIBLE);
+                                    acceptBtn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            System.out.println("Hello world: " + contactUid);
+                                            HashMap userData = new HashMap();
+                                            userData.put(contactUid, 0);
+                                            HashMap userData2 = new HashMap();
+                                            userData2.put(tFireRef.getAuth().getUid(),0);
+                                            //tFireRef.child("users").child(tFireRef.getAuth().getUid()).child("contacts").setValue(userData);
+                                            tFireRef.child("users").child(tFireRef.getAuth().getUid()).child("contacts").updateChildren(userData);
+                                            tFireRef.child("users").child(contactUid).child("contacts").updateChildren(userData2);
+                                            finish();
+                                        }
+                                    });
 
 
                                 }
@@ -66,9 +87,8 @@ public class AddContactActivity extends AppCompatActivity {
                                 }
                             });
 
-                        }
-                        else{
-                            Toast t=  Toast.makeText(getApplicationContext(), "No results", Toast.LENGTH_SHORT);
+                        } else {
+                            Toast t = Toast.makeText(getApplicationContext(), "No results", Toast.LENGTH_SHORT);
                             t.show();
                         }
 
