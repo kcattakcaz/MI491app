@@ -42,7 +42,7 @@ public class RegistrationActivity extends Activity {
                                 .setAction("Action", null).show();
                         User authed_user = new User(username,displayName.getText().toString(),phoneNumber.getText().toString());
                         mFireRef.child("users").child(authData.getUid()).setValue(authed_user);
-                        mFireRef.child("users_email").child(authData.getUid()).setValue(authed_user.getPhoneNumber());
+                        mFireRef.child("users_email").child(authed_user.getPhoneNumber()).setValue(mFireRef.getAuth().getUid());
                         startActivity(new Intent(getApplicationContext(), Dashboard.class));
                     }
 
