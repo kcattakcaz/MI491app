@@ -40,7 +40,7 @@ public class Dashboard extends AppCompatActivity {
         setContentView(R.layout.activity_conversations_inbox);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        Firebase.setAndroidContext(this.getApplicationContext());
         // use a linear layout manager
         conversationsLayoutManager = new LinearLayoutManager(getApplicationContext());
         conversationsRecyclerView = (RecyclerView) findViewById(R.id.conversationsRecView);

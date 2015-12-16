@@ -29,6 +29,7 @@ public class ComposeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
         this.setTitle("New Conversation");
+        Firebase.setAndroidContext(this.getApplicationContext());
         final Firebase sFireRef = new Firebase("https://mi491app.firebaseio.com");
         final MultiAutoCompleteTextView contacts = (MultiAutoCompleteTextView) findViewById(R.id.compose_mactv);
         contacts.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1));
@@ -65,7 +66,7 @@ public class ComposeActivity extends AppCompatActivity {
                             user.setPhoneNumber(dataSnapshot.child("phoneNumber").getValue().toString());
                             users.put(dataSnapshot.child("displayName").getValue().toString(),dataSnapshot.getKey());
                             user_names.add(dataSnapshot.child("displayName").getValue().toString());
-                            ArrayAdapter AutoCompleteAdapter = new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,user_names.toArray());
+                            ArrayAdapter AutoCompleteAdapter = new ArrayAdapter(getApplicationContext(),R.layout.content_add_friend,user_names.toArray());
                             System.out.println(user_names.toString());
                             contacts.setAdapter(AutoCompleteAdapter);
                             contacts.setThreshold(1);

@@ -39,17 +39,20 @@
             android:label="@string/title_activity_registration" />
         <activity
             android:name=".ContactsListActivity"
-            android:label="@string/title_activity_contacts_list" />
+            android:label="@string/title_activity_contacts_list"
+            android:parentActivityName=".Dashboard"
+            />
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.jaghory.mi491app.Dashboard" />
+            android:value="com.jaghory.mi491app.Dashboard"
+            android:parentActivityName=".Dashboard"/>
         <activity
             android:name=".AddContactActivity"
             android:label="@string/title_activity_add_contact"
             android:parentActivityName=".ContactsListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.jaghory.mi491app.ContactsListActivity" />
+                android:value="com.jaghory.mi491app.Dashboard" />
         </activity>
     </application>
 
