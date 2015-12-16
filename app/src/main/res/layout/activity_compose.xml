@@ -33,7 +33,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/compose_mactv"
-                android:completionHint="Start typing..."
                 android:hint="Type your contacts name" />
 
             <LinearLayout
