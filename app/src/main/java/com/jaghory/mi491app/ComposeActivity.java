@@ -108,9 +108,10 @@ public class ComposeActivity extends AppCompatActivity {
                 Map<String,Object> conversation = new HashMap<String, Object>();
                 ArrayList<String> validated_recipients = new ArrayList<String>();
                 for (int i = 0; i < recipients.length ; i++) {
-                    if(users.containsKey(recipients[i])){
+                    if(users.containsKey(recipients[i].trim())){
                         validated_recipients.add(users.get(recipients[i]));
-                        conversation.put(users.get(recipients[i]), true);
+                        System.out.println("validated: "+recipients[i]);
+                        conversation.put(users.get(recipients[i].trim()), true);
                     }
                 }
                 conversation.put(sFireRef.getAuth().getUid(), true);
