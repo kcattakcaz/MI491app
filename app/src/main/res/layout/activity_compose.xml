@@ -32,9 +32,9 @@
             <MultiAutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New MultiAutoCompleteTextView"
-                android:id="@+id/autoCompleteTextView"
-                android:completionHint="Start typing..." />
+                android:id="@+id/compose_mactv"
+                android:completionHint="Start typing..."
+                android:hint="Type your contacts name" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -46,11 +46,11 @@
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
                     android:ems="10"
-                    android:id="@+id/editText"
+                    android:id="@+id/compose_msg_txt"
                     android:layout_weight="5"
                     android:layout_gravity="left|bottom" />
 
-                <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
+                <android.support.design.widget.FloatingActionButton android:id="@+id/compose_send_btn"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
                     android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin"
                     android:src="@android:drawable/ic_menu_send" />

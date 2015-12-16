@@ -4,12 +4,7 @@ package com.jaghory.mi491app;
  * Created by zach on 11/19/15.
  */
 public class Message {
-    public enum MessageType{
-        TEXT,IMAGE,FILE
-    }
-
-    private String id;
-    private MessageType type; //image/file not going to be implemented (stretch goal)
+    private String type; //image/file not going to be implemented (stretch goal)
     private String sender; //just the plain text username of the sender
     private Integer timestamp; //server's timestamp or something probably in UTC?
     private String content; //Just text for text, URL for image/file
@@ -19,9 +14,8 @@ public class Message {
     }
 
 
-    public Message(MessageType mType,String mId,String mSender,Integer mTimestamp,String mContent){
+    public Message(String mType,String mSender,Integer mTimestamp,String mContent){
         this.type = mType;
-        this.id = mId;
         this.sender = mSender;
         this.timestamp = mTimestamp;
         this.content = mContent;
@@ -29,11 +23,11 @@ public class Message {
     }
 
 
-    public MessageType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(MessageType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -59,14 +53,6 @@ public class Message {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
 
