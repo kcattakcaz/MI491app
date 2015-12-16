@@ -22,12 +22,12 @@ android:clickable="true">
     <TextView
         android:id="@+id/messageTitle"
         android:layout_width="match_parent"
-        android:layout_height="15dp"
+        android:layout_height="20dp"
         android:text="contact det"
         android:gravity="center_vertical"
         android:textSize="15dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="0dp" />
 
     <TextView
         android:id="@+id/messageContent"
