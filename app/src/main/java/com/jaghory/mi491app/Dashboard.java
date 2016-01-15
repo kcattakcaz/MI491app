@@ -1,21 +1,20 @@
 package com.jaghory.mi491app;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.ActionMenuItem;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,24 +25,22 @@ import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 import com.firebase.ui.FirebaseRecyclerAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Dashboard extends AppCompatActivity {
+public class Dashboard extends Fragment{
+    ConversationManagementInterface parentActivityConversationManager;
     private RecyclerView conversationsRecyclerView;
     private RecyclerView.Adapter conversationsAdapter;
     private RecyclerView.LayoutManager conversationsLayoutManager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_conversations_inbox);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Firebase.setAndroidContext(this.getApplicationContext());
+        View view = inflater.inflate(R.layout.activity_conversations_inbox,container,false);
+
+        //Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        //((AppCompatActivity)getActivity()).getSupportActionBar().setTitle();
         // use a linear layout manager
-        conversationsLayoutManager = new LinearLayoutManager(getApplicationContext());
-        conversationsRecyclerView = (RecyclerView) findViewById(R.id.conversationsRecView);
+        conversationsLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        conversationsRecyclerView = (RecyclerView) view.findViewById(R.id.conversationsRecView);
         conversationsRecyclerView.setLayoutManager(conversationsLayoutManager);
 
         final Firebase mFireRef = new Firebase("https://mi491app.firebaseio.com/conversations");
@@ -51,15 +48,16 @@ public class Dashboard extends AppCompatActivity {
 
         final Query queryRef = mFireRef.orderByChild(mFireRef.getAuth().getUid()).equalTo(true);
 
-
+        System.out.println("Query " + queryRef);
         mFireRef.getRoot().child("users/" + mFireRef.getAuth().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                System.out.println(dataSnapshot);
 
                 currentUser.setDisplayName((String) dataSnapshot.child("displayName").getValue());
                 currentUser.setPhoneNumber(dataSnapshot.child("phoneNumber").getValue().toString());
 
-                Snackbar.make(findViewById(R.id.conversationsRecView), "Welcome back, " + currentUser.getDisplayName(), Snackbar.LENGTH_LONG)
+                Snackbar.make(getActivity().findViewById(R.id.smartphone_conversations_fragment_primary_container), "Welcome back, " + currentUser.getDisplayName(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
             }
@@ -87,15 +85,19 @@ public class Dashboard extends AppCompatActivity {
         ItemClickSupport.addTo(conversationsRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                Intent clickedConv = new Intent(getApplicationContext(),ConversationActivity.class);
-                clickedConv.putExtra("conversation_firebase_ref",mAdapter.getRef(position).toString());
+                /*Intent clickedConv = new Intent(getActivity().getApplicationContext(), ConversationActivity.class);
+                clickedConv.putExtra("conversation_firebase_ref", mAdapter.getRef(position).toString());
 
                 startActivity(clickedConv);
+                */
+                System.out.println(mAdapter.getRef(position).toString());
+                parentActivityConversationManager.onSelectConversation(mAdapter.getRef(position).toString());
+
 
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,17 +108,29 @@ public class Dashboard extends AppCompatActivity {
                 nC.setcTitle("Empty Title");
                 mFireRef.push().setValue(nC);
                 */
-                startActivity(new Intent(getApplicationContext(),ComposeActivity.class));
-            }});
+                startActivity(new Intent(getActivity().getApplicationContext(), ComposeActivity.class));
+            }
+        });
 
 
-
+        return view;
     }
 
     @Override
+    public void onAttach(Activity activity){
+        super.onAttach(activity);
+        try{
+           this.parentActivityConversationManager = (ConversationManagementInterface) activity;
+        }
+        catch(ClassCastException e){
+            throw new ClassCastException(activity.toString() + " must implement ConversationManagementInterface");
+        }
+    }
+
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_conversations_inbox, menu);
+        //getMenuInflater().inflate(R.menu.menu_conversations_inbox, menu);
         return true;
     }
 
@@ -124,10 +138,10 @@ public class Dashboard extends AppCompatActivity {
     public void onBackPressed()
     {
         //super.onBackPressed();
-        Toast toast = Toast.makeText(getApplicationContext(), "You are already signed-in", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getActivity().getApplicationContext(), "You are already signed-in", Toast.LENGTH_SHORT);
         toast.show();
 
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -141,12 +155,12 @@ public class Dashboard extends AppCompatActivity {
             return true;
         }
         else if(id == R.id.action_friends_list){
-            startActivity(new Intent(getApplicationContext(),ContactsListActivity.class));
+            startActivity(new Intent(getActivity().getApplicationContext(),ContactsListActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
     }
-    private static class ConversationViewHolder extends RecyclerView.ViewHolder {
+    public static class ConversationViewHolder extends RecyclerView.ViewHolder {
         TextView messageText;
         TextView nameText;
 
@@ -155,6 +169,12 @@ public class Dashboard extends AppCompatActivity {
             nameText = (TextView)itemView.findViewById(R.id.mConversationTitle);
             messageText = (TextView) itemView.findViewById(R.id.mConversationSummary);
         }
+    }
+
+    public interface ConversationManagementInterface{
+        public void onCreateConversation();
+        public void onSelectConversation(String conversation_firebase_ref);
+        public void onDeleteConversation(String conversation_firebase_ref);
     }
 }
 

@@ -7,4 +7,5 @@
     <string name="title_activity_registration">Account Creation</string>
     <string name="title_activity_contacts_list">My Contacts</string>
     <string name="title_activity_add_contact">AddContactActivity</string>
+    <string name="title_activity_smartphone_conversations">SmartphoneConversationsActivity</string>
 </resources>

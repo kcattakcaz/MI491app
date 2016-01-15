@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         final Firebase.AuthResultHandler authResultHandler = new Firebase.AuthResultHandler(){
             @Override
             public void onAuthenticated(AuthData authData){
-                startActivity(new Intent(getApplicationContext(),Dashboard.class));
+                startActivity(new Intent(getApplicationContext(),SmartphoneConversationsActivity.class));
             }
 
             @Override
@@ -59,9 +59,6 @@ public class LoginActivity extends AppCompatActivity {
                 fRef.createUser(username.getText().toString(), password.getText().toString(), new Firebase.ValueResultHandler<Map<String, Object>>() {
                     @Override
                     public void onSuccess(Map<String, Object> result) {
-                        /*Snackbar.make(v, "Created!  Now sign in!", Snackbar.LENGTH_SHORT)
-                                .setAction("Action", null).show();
-                                */
                         Intent finRegister = new Intent(getApplicationContext(),RegistrationActivity.class);
                         finRegister.putExtra("username",username.getText().toString());
                         finRegister.putExtra("password",password.getText().toString());

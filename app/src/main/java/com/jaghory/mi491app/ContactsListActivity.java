@@ -36,7 +36,7 @@ public class ContactsListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts_list);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         final RecyclerView contactsRecView = (RecyclerView) findViewById(R.id.contactsRecyclerView);
         final ContactsAdapter contactsA = new ContactsAdapter();
         contactsRecView.setAdapter(contactsA);
