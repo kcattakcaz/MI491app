@@ -97,22 +97,6 @@ public class Dashboard extends Fragment{
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /*Snackbar.make(view, "Message sent", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
-                ConversationOverview nC = new ConversationOverview();
-                nC.setcSummary("New Message");
-                nC.setcTitle("Empty Title");
-                mFireRef.push().setValue(nC);
-                */
-                startActivity(new Intent(getActivity().getApplicationContext(), ComposeActivity.class));
-            }
-        });
-
-
         return view;
     }
 

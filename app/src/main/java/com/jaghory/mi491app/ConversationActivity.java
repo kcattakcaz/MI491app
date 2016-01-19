@@ -23,7 +23,9 @@ public class ConversationActivity extends Fragment {
     private RecyclerView messagesRecyclerView;
     private RecyclerView.Adapter conversationsAdapter;
     private RecyclerView.LayoutManager messagesLayoutManager;
-
+    private Firebase conversationRef;
+    private User currentUser;
+    EditText userText;
     public String getCurrentConversationFirebaseRef() {
         return currentConversationFirebaseRef;
     }
@@ -49,10 +51,14 @@ public class ConversationActivity extends Fragment {
 
             String firebaseRefStr = this.currentConversationFirebaseRef;
 
-            final Firebase firebaseRef = new Firebase(firebaseRefStr);
+            this.userText = (EditText) view.findViewById(R.id.inputText);
+
+            this.conversationRef = new Firebase(firebaseRefStr);
+            final Firebase firebaseRef = this.conversationRef;
             final Firebase sFireRef = new Firebase("https://mi491app.firebaseio.com/users");
 
             final User user = new User();
+            this.currentUser = user;
 
             sFireRef.child(sFireRef.getAuth().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -63,20 +69,6 @@ public class ConversationActivity extends Fragment {
                 @Override
                 public void onCancelled(FirebaseError firebaseError) {
 
-                }
-            });
-
-            Button sendButton = (Button) view.findViewById(R.id.sendMessage);
-            final EditText userText = (EditText) view.findViewById(R.id.inputText);
-
-            sendButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Message sMessage = new Message("text", user.getDisplayName(), 0, userText.getText().toString());
-                    firebaseRef.child("messages").push().setValue(sMessage);
-                    userText.setText("");
-                    userText.clearFocus();
-                    messagesRecyclerView.scrollToPosition(messagesRecyclerView.getAdapter().getItemCount());
                 }
             });
 
@@ -101,6 +93,14 @@ public class ConversationActivity extends Fragment {
             return view;
         }
 
+    }
+
+    public void sendMessage(){
+        Message sMessage = new Message("text", currentUser.getDisplayName(), 0, userText.getText().toString());
+        conversationRef.child("messages").push().setValue(sMessage);
+        userText.setText("");
+        userText.clearFocus();
+        messagesRecyclerView.scrollToPosition(messagesRecyclerView.getAdapter().getItemCount());
     }
 
     public static class MessagesViewHolder extends RecyclerView.ViewHolder {

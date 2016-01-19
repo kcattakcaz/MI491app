@@ -20,15 +20,6 @@
         android:id="@+id/inputText"
         android:hint="Start typing" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/sendMessage"
-        android:text="Send"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/messagesRecView"
         android:scrollbars="vertical"
