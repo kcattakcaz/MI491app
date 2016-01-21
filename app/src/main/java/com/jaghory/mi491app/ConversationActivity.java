@@ -1,15 +1,12 @@
 package com.jaghory.mi491app;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -39,13 +36,13 @@ public class ConversationActivity extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      //  setContentView(R.layout.activity_conversation);
+      //  setContentView(R.layout.fragment_conversation);
 
        // getActionBar().setDisplayHomeAsUpEnabled(true);
 
   //      Intent i = getIntent();
         if(currentConversationFirebaseRef != null) {
-            View view = inflater.inflate(R.layout.activity_conversation,container,false);
+            View view = inflater.inflate(R.layout.fragment_conversation,container,false);
 
             //String firebaseRefStr = i.getStringExtra("conversation_firebase_ref");
 
@@ -95,7 +92,7 @@ public class ConversationActivity extends Fragment {
 
     }
 
-    public void sendMessage(){
+    public void sendTextMessage(){
         Message sMessage = new Message("text", currentUser.getDisplayName(), 0, userText.getText().toString());
         conversationRef.child("messages").push().setValue(sMessage);
         userText.setText("");

@@ -38,7 +38,7 @@ public class SmartphoneConversationsActivity extends AppCompatActivity implement
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         if(fab.getVisibility() != View.VISIBLE) {
             fab.setVisibility(View.VISIBLE);
-            fab.animate().translationY(fab.getHeight())
+            fab.animate().translationY(-fab.getHeight())
                     .setDuration(300)
                     .setListener(new AnimatorListenerAdapter() {
                         @Override
@@ -63,7 +63,7 @@ public class SmartphoneConversationsActivity extends AppCompatActivity implement
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                conv_viewer_frag.sendMessage();
+                conv_viewer_frag.sendTextMessage();
             }
         });
     }

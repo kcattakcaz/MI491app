@@ -4,7 +4,7 @@ package com.jaghory.mi491app;
  * Created by zach on 11/19/15.
  */
 public class Message {
-    private String type; //image/file not going to be implemented (stretch goal)
+    private String type; // text / image / file
     private String sender; //just the plain text username of the sender
     private Integer timestamp; //server's timestamp or something probably in UTC?
     private String content; //Just text for text, URL for image/file
